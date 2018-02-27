@@ -1,0 +1,177 @@
+// MICS Robot Pseudo Code 2018
+// Line Following Version
+// @auther Preston Helbling
+
+
+/* ----- Notes ------
+	As this pseudo code is intended to provide the logic necessary to create
+	the actual code for both an object oriented language and basic there is a 
+	mixture of both conventions.  The pseudo code will need to be interpreted 
+	but, should hopefully provide a "bug free" logic to follow.  I have attempted 
+	to aid the CS2 students the most with this pseudo code as I will be prioritizing
+	to a working version of the bo_bot.
+*/
+
+// ------ Variables ------
+const rightMotor;
+const leftMotor;
+uar pulseRight;
+uar pulseLeft;
+int xCoordinate = 0;
+int yCoordinate = 0;
+
+// IR Sensor
+
+int direction = 0;
+
+
+// Bo_Bot only.
+// Replaces a parameter for rotate.
+int degreeRotate = 0;
+
+
+
+// ------ Functions/Sub Routines ------
+void forward()
+{
+	// Motors Forward
+	gridDetection();
+}
+void backward()
+{
+	// Motors Backward
+}
+
+void right();
+{
+	
+}
+void left();
+
+
+void rotate(int degrees);
+
+
+void lineFollow()
+{
+	// Handle line following
+	gridDetection();
+}
+
+
+// Keeps track of location
+void gridDetection()
+{
+	if(colorSensor == RED)
+	{
+		yCoordinate++;
+	}
+	else if(colorSensor == BLACK)
+	{
+		xCoordinate++;
+	}
+}
+
+void findLine()
+{
+	// Position to a black line
+	while(yCoordinate != 1 && xCoordinate != 1)
+	{
+		// Forward to black line
+		forward();
+		if(xCoordinate == 1)
+		{
+			left();
+		}
+		// Forward to red line
+		else if(yCoordinate == 1)
+		{
+			rotate(315);
+		
+			while(xCoordinate != 1)
+			{
+				forward();
+			}
+		
+			rotate(45);
+		}
+	}
+
+}
+
+// Most of the complicated logic will be within here
+void navigateToOtherCorner()
+{
+	// ----- Navigate to Opposite Corner
+	while(xCoordinate != 8 && yCoordinate != 4)
+	{
+		lineFollow();
+	
+		// Barrier Use Cases
+		if()
+		{
+			
+		}
+		else if()
+		{
+			
+		}
+		else if()
+		{
+			
+		}
+		else if()
+		{
+			
+		}
+		
+		else if()
+		{
+			
+		}
+	}
+}
+
+
+
+
+// ------ Navigate Course -----
+
+Main:
+
+	findLine();
+	navigateToOtherCorner();
+	grabFlag();
+	findLine();
+	navigateToOtherCorner();
+	
+
+// ----- Grab Flag -----
+
+// Forward amount of time to ensure we hit the corner
+FOR counter = some time.
+
+	forward();
+	
+NEXT
+
+// grabbing flag
+
+// Backup amount of time to get away from corner
+FOR counter = some time.
+
+	backward();
+	
+NEXT
+
+// Turn Around
+	
+
+
+
+
+
+
+
+
+
