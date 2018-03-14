@@ -1,0 +1,116 @@
+/**
+ * @author Preston Helbling
+ *
+ */
+
+import lejos.robotics.navigation.DifferentialPilot;
+import lejos.nxt.*;
+
+public class HardwareController 
+{
+	// DifferentialPilot(double wheelDiameter, double trackWidth, RegulatedMotor leftMotor, RegulatedMotor rightMotor)
+	DifferentialPilot pilot = new DifferentialPilot(2.1f, 4.4f, Motor.A, Motor.C, true);
+	
+	// ColorSensor(SensorPort port)
+	ColorSensor colorSensor = new ColorSensor(SensorPort.S1);
+	
+	// TouchSensor(ADSensorPort port)
+	TouchSensor barrierPushButton = new TouchSensor(SensorPort.S2);
+	
+	// TouchSensor(ADSensorPort port)
+	TouchSensor flagPushButton = new TouchSensor(SensorPort.S3);
+	
+	int xCoordinate = 0;
+	int yCoordinate = 0;
+	
+	// Keep track of the direction the robot is moving
+	boolean forward = false;
+	enum direction {FORWARD, LEFT, RIGHT, BACKWARD};
+	
+	
+	private void gridDetection()
+	{
+		if(forward == true)
+		{
+			if(colorSensor.getColor().equals(ColorSensor.BLACK))
+			{
+				xCoordinate++;
+			}
+			else if(colorSensor.getColor().equals(ColorSensor.RED))
+			{
+				yCoordinate++;
+			}
+		}
+		else
+		{
+			if(colorSensor.getColor().equals(ColorSensor.BLACK))
+			{
+				xCoordinate--;
+			}
+			else if(colorSensor.getColor().equals(ColorSensor.RED))
+			{
+				yCoordinate--;
+			}
+		}
+	}
+	
+	
+	// Change position of the robot. 
+	public void teleportGrid(int x, int y)
+	{
+		xCoordinate = x;
+		yCoordinate = y;
+	}
+	
+	public boolean flagCaptured()
+	{
+		return flagPushButton.isPressed();	
+	}
+	
+	
+	// A way of moving a specified distance
+	public void moveDirection(HardwareController.direction direction, int distance)
+	{
+		
+	}
+	
+	public void moveDirection(HardwareController.direction direction)
+	{
+		switch(direction)
+		{
+			case FORWARD:
+				while(!(colorSensor.equals(colorSensor.RED) || colorSensor.equals(colorSensor.BLACK)) || !barrierPushButton.isPressed())
+				{
+					pilot.forward();
+					gridDetection();
+				}
+				
+			break;
+			
+			case BACKWARD:
+				while(!(colorSensor.equals(colorSensor.RED) || colorSensor.equals(colorSensor.BLACK))|| !barrierPushButton.isPressed())
+				{
+					pilot.backward();
+					gridDetection();
+				}
+				
+			break;
+			
+			case LEFT:
+				pilot.rotate(90);
+		
+			break;
+			
+			case RIGHT:
+				pilot.rotate(-90);
+				
+			break;
+		}
+	}
+	
+	HardwareController()
+	{
+		
+		
+	}
+}
