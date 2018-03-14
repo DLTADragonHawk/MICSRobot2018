@@ -1,0 +1,13 @@
+/**
+ * @author Preston
+ *
+ */
+
+
+// Handles all decision making and directly manipulates the HardwareControl class
+public class Controller 
+{
+	HardwareController robot = new HardwareController();
+	
+	
+}
